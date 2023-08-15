@@ -44,12 +44,6 @@ export const init = async () => {
               coinDecimals: 6
             }
           ]
-          //   coinType: 118,
-          //   gasPriceStep: {
-          //     low: 1,
-          //     average: 2,
-          //     high: 3
-          //   }
         });
       } catch (e) {
         alert("Failed to suggest the chain");
