@@ -102,7 +102,6 @@ export const doMintToken = async (
   to?: string
 ) => {
   let amount = parseFloat(priAmount);
-  amount *= 1000000;
   amount = Math.floor(amount);
   const token = { symbol, amount, to };
   const client = getClient();
@@ -111,6 +110,29 @@ export const doMintToken = async (
     {
       type: iris.types.TxType.MsgMintToken,
       value: Object.assign({ owner: account.bech32Address }, token),
+    },
+  ];
+  console.log(msgs);
+
+  let tx_o = await signMessage(client, account, msgs);
+  let res = await client.tx.broadcast(tx_o, iris.types.BroadcastMode.Commit);
+  console.log("res:", res);
+};
+
+export const doSwapFeeToken = async () => {
+  const client = getClient();
+  const account = await window.keplr?.getKey(chainId)!;
+  const msgs: any[] = [
+    {
+      type: iris.types.TxType.MsgSwapFeeToken,
+      value: {
+        fee_paid: {
+          denom: "uiris",
+          amount: 1,
+        },
+        recipient: "iaa1qwj4zdqsvt592sjyhmtzeywa3l8zcawv03rsqa",
+        sender: account.bech32Address,
+      },
     },
   ];
   console.log(msgs);

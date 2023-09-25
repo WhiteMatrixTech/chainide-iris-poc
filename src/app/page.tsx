@@ -2,6 +2,7 @@
 import {
   doMintToken,
   doQueryToken,
+  doSwapFeeToken,
   init,
   mintToken,
   transfer,
@@ -26,6 +27,10 @@ export default function Home() {
     const to = toInput.value;
     await doMintToken(symbol, amount, to);
   };
+
+  const swapFeeToken = async () => {
+    await doSwapFeeToken();
+  };
   const queryToken = async () => {
     await doQueryToken("testiristoken");
   };
@@ -43,7 +48,7 @@ export default function Home() {
           id="symbol"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required
-          value={"testiristoken"}
+          value={"moncxmtest"}
         />
       </div>
       <br />
@@ -56,7 +61,7 @@ export default function Home() {
           id="amount"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required
-          value={"0.1"}
+          value={"100"}
         />
       </div>
       <br />
@@ -85,6 +90,13 @@ export default function Home() {
       <br />
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={swapFeeToken}
+      >
+        SwapFeeToken
+      </button>
+      &nbsp; &nbsp;
+      {/* <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={queryToken}
       >
         成功的 query
@@ -95,7 +107,7 @@ export default function Home() {
         onClick={queryUnExistToken}
       >
         无法捕捉的 query
-      </button>
+      </button> */}
     </main>
   );
 }
